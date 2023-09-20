@@ -2,12 +2,10 @@
 
 /**
  * pop - Removes the top element of the stack
- * @stack: Pointer to the pointer to the stack (doubly linked list)
- * @line_number: Line number in the Monty bytecodes file
+ * @stack: Pointer to the pointer to the stack
+ * @line_number: Line number in the Monty file
  *
- * Description:
- * This function removes the top element of the stack. If the stack is empty,
- * it prints an error message and exits with EXIT_FAILURE.
+ * Description: Removes the top element of the stack.
  */
 void pop(stack_t **stack, unsigned int line_number)
 {
