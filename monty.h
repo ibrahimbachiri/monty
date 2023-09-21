@@ -4,16 +4,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <unistd.h>
+#include <ctype.h>
 
-/* Define your data structures here */
+/* ... Other header declarations ... */
 
-/**
- * struct stack_s - Doubly linked list representation of a stack
- * @n: Integer value stored in the node
- * @prev: Pointer to the previous node
- * @next: Pointer to the next node
- */
+/* Custom data structure for the doubly linked list */
 typedef struct stack_s
 {
     int n;
@@ -21,26 +16,13 @@ typedef struct stack_s
     struct stack_s *next;
 } stack_t;
 
-/**
- * struct instruction_s - Opcode and its corresponding function
- * @opcode: The opcode string
- * @f: Pointer to the function to execute the opcode
- */
-typedef struct instruction_s
-{
-    char *opcode;
-    void (*f)(stack_t **stack, unsigned int line_number);
-} instruction_t;
+/* ... Other header declarations ... */
 
-/* Function prototypes */
-
-/* Define your function prototypes here */
-
+void push(stack_t **stack, unsigned int line_number);
 void pall(stack_t **stack, unsigned int line_number);
-void push(stack_t **stack, int line_number, int value);
-void pint(stack_t **stack, unsigned int line_number);
-void pop(stack_t **stack, unsigned int line_number);
+int is_number(char *str);
+void add_node(stack_t **stack, int value); // Add this declaration
 
-/* Add more function prototypes for other opcodes as needed */
+/* ... Other header declarations ... */
 
 #endif /* MONTY_H */

@@ -42,29 +42,32 @@ int is_number(char *str)
 
     for (; str[i] != '\0'; i++)
     {
-        if (!isdigit(str[i]))
+        if (!isdigit((unsigned char)str[i]))
             return (0);
     }
     return (1);
 }
 
 /**
- * pall - Prints all the values on the stack
+ * add_node - Adds a new node to the stack
  * @stack: Pointer to the pointer to the stack (doubly linked list)
- * @line_number: Line number in the Monty file
- *
- * Description: Prints all the integer values on the stack from top to bottom.
- * If the stack is empty, don't print anything.
+ * @value: Value to be added to the new node
  */
-void pall(stack_t **stack, unsigned int line_number)
+void add_node(stack_t **stack, int value)
 {
-    stack_t *current = *stack;
-
-    (void)line_number;
-
-    while (current != NULL)
+    stack_t *new_node = malloc(sizeof(stack_t));
+    if (!new_node)
     {
-        printf("%d\n", current->n);
-        current = current->next;
+        fprintf(stderr, "Error: malloc failed\n");
+        exit(EXIT_FAILURE);
     }
+
+    new_node->n = value;
+    new_node->prev = NULL;
+    new_node->next = *stack;
+
+    if (*stack)
+        (*stack)->prev = new_node;
+
+    *stack = new_node;
 }
