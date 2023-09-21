@@ -10,5 +10,5 @@ typedef struct Stack {
 
 void push(Stack *stack, int value);
 void pall(Stack *stack);
-
+void pint(Stack *stack);
 #endif

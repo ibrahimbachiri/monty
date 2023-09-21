@@ -8,8 +8,10 @@
  *
  * Return: Always EXIT_SUCCESS.
  */
+
 int main(int argc, char *argv[])
 {
+
 	FILE *file;
 	Stack stack;
 	char opcode[100];
