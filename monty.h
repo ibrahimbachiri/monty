@@ -6,22 +6,22 @@
 #include <string.h>
 #include <ctype.h>
 
-/* ... Other header declarations ... */
+#define STACK_SIZE 100
 
-/* Custom data structure for the doubly linked list */
-typedef struct stack_s
-{
-    int n;
-    struct stack_s *prev;
-    struct stack_s *next;
-} stack_t;
+typedef struct {
+    int data[STACK_SIZE];
+    int top;
+} Stack;
 
-/* ... Other header declarations ... */
+void initialize(Stack* stack);
 
-void push(stack_t **stack, unsigned int line_number);
-void pall(stack_t **stack, unsigned int line_number);
-int is_number(char *str);
-void push_node(stack_t **stack, int value);
+int is_empty(Stack* stack);
+
+void push(Stack* stack, int value);
+
+int pop(Stack* stack);
+
+void print_stack(Stack* stack);
 
 /* ... Other header declarations ... */
 
