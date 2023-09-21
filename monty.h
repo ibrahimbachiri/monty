@@ -12,4 +12,5 @@ void pop(Stack *stack);
 void push(Stack *stack, int value);
 void pall(Stack *stack);
 void pint(Stack *stack);
+void swap(Stack *stack);
 #endif
