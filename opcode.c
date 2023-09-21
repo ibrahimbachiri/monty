@@ -1,136 +1,70 @@
 #include "monty.h"
 
 /**
- * _push - pushes an element to the stack
+ * push - Pushes an element onto the stack
+ * @stack: Pointer to the pointer to the stack (doubly linked list)
+ * @line_number: Line number in the Monty file
  *
- * @doubly: head of the linked list
- * @cline: line number
- * Return: no return
+ * Description: Pushes an integer onto the stack. If not an integer or no
+ * argument given, prints an error and exits with EXIT_FAILURE.
  */
-void _push(stack_t **doubly, unsigned int cline)
+void push(stack_t **stack, unsigned int line_number)
 {
-	int n, j;
+    char *arg;
+    int value;
 
-	if (!vglo.arg)
-	{
-		dprintf(2, "L%u: ", cline);
-		dprintf(2, "usage: push integer\n");
-		free_vglo();
-		exit(EXIT_FAILURE);
-	}
+    arg = strtok(NULL, " \t\n");
 
-	for (j = 0; vglo.arg[j] != '\0'; j++)
-	{
-		if (!isdigit(vglo.arg[j]) && vglo.arg[j] != '-')
-		{
-			dprintf(2, "L%u: ", cline);
-			dprintf(2, "usage: push integer\n");
-			free_vglo();
-			exit(EXIT_FAILURE);
-		}
-	}
+    if (!arg || !is_number(arg))
+    {
+        fprintf(stderr, "L%d: usage: push integer\n", line_number);
+        exit(EXIT_FAILURE);
+    }
 
-	n = atoi(vglo.arg);
+    value = atoi(arg);
 
-	if (vglo.lifo == 1)
-		add_dnodeint(doubly, n);
-	else
-		add_dnodeint_end(doubly, n);
+    /* Create a new node and push it onto the stack */
+    add_node(stack, value);
 }
 
 /**
- * _pall - prints all values on the stack
+ * is_number - Checks if a string is a valid integer
+ * @str: The string to check
  *
- * @doubly: head of the linked list
- * @cline: line numbers
- * Return: no return
+ * Return: 1 if it's a number, 0 otherwise
  */
-void _pall(stack_t **doubly, unsigned int cline)
+int is_number(char *str)
 {
-	stack_t *aux;
-	(void)cline;
+    int i = 0;
 
-	aux = *doubly;
+    if (str[0] == '-')
+        i = 1;
 
-	while (aux)
-	{
-		printf("%d\n", aux->n);
-		aux = aux->next;
-	}
+    for (; str[i] != '\0'; i++)
+    {
+        if (!isdigit(str[i]))
+            return (0);
+    }
+    return (1);
 }
 
 /**
- * _pint - prints the value at the top of the stack
+ * pall - Prints all the values on the stack
+ * @stack: Pointer to the pointer to the stack (doubly linked list)
+ * @line_number: Line number in the Monty file
  *
- * @doubly: head of the linked list
- * @cline: line number
- * Return: no return
+ * Description: Prints all the integer values on the stack from top to bottom.
+ * If the stack is empty, don't print anything.
  */
-void _pint(stack_t **doubly, unsigned int cline)
+void pall(stack_t **stack, unsigned int line_number)
 {
-	(void)cline;
+    stack_t *current = *stack;
 
-	if (*doubly == NULL)
-	{
-		dprintf(2, "L%u: ", cline);
-		dprintf(2, "can't pint, stack empty\n");
-		free_vglo();
-		exit(EXIT_FAILURE);
-	}
+    (void)line_number;
 
-	printf("%d\n", (*doubly)->n);
-}
-
-/**
- * _pop - removes the top element of the stack
- *
- * @doubly: head of the linked list
- * @cline: line number
- * Return: no return
- */
-void _pop(stack_t **doubly, unsigned int cline)
-{
-	stack_t *aux;
-
-	if (doubly == NULL || *doubly == NULL)
-	{
-		dprintf(2, "L%u: can't pop an empty stack\n", cline);
-		free_vglo();
-		exit(EXIT_FAILURE);
-	}
-	aux = *doubly;
-	*doubly = (*doubly)->next;
-	free(aux);
-}
-
-/**
- * _swap - swaps the top two elements of the stack
- *
- * @doubly: head of the linked list
- * @cline: line number
- * Return: no return
- */
-void _swap(stack_t **doubly, unsigned int cline)
-{
-	int m = 0;
-	stack_t *aux = NULL;
-
-	aux = *doubly;
-
-	for (; aux != NULL; aux = aux->next, m++)
-		;
-
-	if (m < 2)
-	{
-		dprintf(2, "L%u: can't swap, stack too short\n", cline);
-		free_vglo();
-		exit(EXIT_FAILURE);
-	}
-
-	aux = *doubly;
-	*doubly = (*doubly)->next;
-	aux->next = (*doubly)->next;
-	aux->prev = *doubly;
-	(*doubly)->next = aux;
-	(*doubly)->prev = NULL;
+    while (current != NULL)
+    {
+        printf("%d\n", current->n);
+        current = current->next;
+    }
 }
