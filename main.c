@@ -1,4 +1,3 @@
-#define _GNU_SOURCE
 #include "monty.h"
 /**
  * free_vglo - frees the global variables
@@ -6,35 +5,18 @@
  * Return: no return
  */
 
-int main(int argc, char *argv[])
+int main()
 {
-	FILE *file;
-	char *line = NULL;
-	size_t len = 0;
-	ssize_t read;
-	unsigned int line_number = 0;
+    Stack stack;
+    initialize(&stack);
 
-	if (argc != 2)
-	{
-	fprintf(stderr, "USAGE: monty file\n");
-	exit(EXIT_FAILURE);
-	}
+    push(&stack, 1);
+    push(&stack, 2);
+    push(&stack, 3);
 
-	file = fopen(argv[1], "r");
-	if (!file)
-	{
-	fprintf(stderr, "Error: Can't open file %s\n", argv[1]);
-	exit(EXIT_FAILURE);
-	}
+    pop(&stack);
 
-	while ((read = getline(&line, &len, file)) != -1)
-	{
-	line_number++;
-	/* Parse the opcode and argument here */
-	/* Call the appropriate function based on the opcode */
-	}
+    print_stack(&stack);
 
-	fclose(file);
-	free(line);
-	return (EXIT_SUCCESS);
+    return EXIT_SUCCESS;
 }

@@ -19,3 +19,24 @@ void push(Stack* stack, int value)
 	exit(EXIT_FAILURE);
 	}
 }
+void initialize(Stack* stack) {
+    stack->top = -1;
+}
+
+int is_empty(Stack* stack) {
+    return stack->top == -1;
+}
+int pop(Stack* stack) {
+    if (!is_empty(stack)) {
+        return stack->data[(stack->top)--];
+    } else {
+        fprintf(stderr, "can't pop an empty stack\n");
+        exit(EXIT_FAILURE);
+    }
+}
+
+void print_stack(Stack* stack) {
+    for (int i = stack->top; i >= 0; i--) {
+        printf("%d\n", stack->data[i]);
+    }
+}
