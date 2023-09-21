@@ -8,7 +8,7 @@
  *
  * Return: Always EXIT_SUCCESS.
  */
-
+int line_number = 0;
 int main(int argc, char *argv[])
 {
 

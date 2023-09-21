@@ -10,7 +10,7 @@
  * This function prints the value at the top of the stack, followed by a new line.
  * If the stack is empty, it prints an error message and exits with EXIT_FAILURE.
  */
-int line_number = 0;
+
 void pint(Stack *stack)
 {
 	if (stack->top == -1)
