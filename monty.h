@@ -14,4 +14,5 @@ void pall(Stack *stack);
 void pint(Stack *stack);
 void swap(Stack *stack);
 void add(Stack *stack);
+void nop(Stack *stack);
 #endif

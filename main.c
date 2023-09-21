@@ -59,7 +59,11 @@ int main(int argc, char *argv[])
 	else if (strcmp(opcode, "add") == 0)
 	{
 	add(&stack);
-	} 
+	}
+	else if (strcmp(opcode, "nop") == 0)
+	{
+	nop(&stack);
+        } 
 	else
 	{
 	fprintf(stderr, "L%d: Unknown opcode: %s\n", line_number, opcode);
