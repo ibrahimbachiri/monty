@@ -13,15 +13,9 @@ typedef struct {
     int top;
 } Stack;
 
-void initialize(Stack* stack);
-
-int is_empty(Stack* stack);
-
+int pop(Stack* stack)
 void push(Stack* stack, int value);
 
-int pop(Stack* stack);
-
-void print_stack(Stack* stack);
 
 /* ... Other header declarations ... */
 
