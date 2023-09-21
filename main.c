@@ -9,45 +9,48 @@
  * Return: Always EXIT_SUCCESS.
  */
 int line_number = 0;
+
 int main(int argc, char *argv[])
 {
+    FILE *file = NULL;
+    Stack stack;
+    char opcode[100];
+    int value;
+    if (argc != 2) {
+        fprintf(stderr, "Usage: %s <filename>\n", argv[0]);
+        return EXIT_FAILURE;
+    }
 
-	FILE *file;
-	Stack stack;
-	char opcode[100];
-	int value;
+    file = fopen(argv[1], "r");
+    if (file == NULL) {
+        perror("Unable to open file");
+        return EXIT_FAILURE;
+    }
 
-	if (argc != 2) {
-	fprintf(stderr, "Usage: %s <filename>\n", argv[0]);
-	return EXIT_FAILURE;
-	}
+    stack.top = -1;
 
-	file = fopen(argv[1], "r");
-	if (file == NULL) {
-	perror("Unable to open file");
-	return EXIT_FAILURE;
-	}
 
-	stack.top = -1;
+    while (fscanf(file, "%s", opcode) != EOF) {
+        line_number++;
 
-	while (fscanf(file, "%s", opcode) != EOF) {
-	if (strcmp(opcode, "push") == 0) {
-	if (fscanf(file, "%d", &value) != 1) {
-	fprintf(stderr, "Error: push requires an integer argument\n");
-	return EXIT_FAILURE;
-	}
-	push(&stack, value);
-	}
-	else if (strcmp(opcode, "pall") == 0) {
-	pall(&stack);
-	}
-	else
-	{
-	fprintf(stderr, "Unknown opcode: %s\n", opcode);
-	return EXIT_FAILURE;
-	}
-	}
+        if (strcmp(opcode, "push") == 0) {
+            if (fscanf(file, "%d", &value) != 1) {
+                fprintf(stderr, "L%d: push requires an integer argument\n", line_number);
+                return EXIT_FAILURE;
+            }
+            push(&stack, value);
+        } else if (strcmp(opcode, "pall") == 0) {
+            pall(&stack);
+        } else if (strcmp(opcode, "pint") == 0) { 
+            pint(&stack);
+        } else if (strcmp(opcode, "pop") == 0) { 
+            pop(&stack);
+        } else {
+            fprintf(stderr, "L%d: Unknown opcode: %s\n", line_number, opcode);
+            return EXIT_FAILURE;
+        }
+    }
 
-	fclose(file);
-	return EXIT_SUCCESS;
+    fclose(file);
+    return EXIT_SUCCESS;
 }
