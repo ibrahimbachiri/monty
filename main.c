@@ -4,22 +4,23 @@
 #include <string.h>
 
 int main(int argc, char *argv[]) {
+    FILE *file;
+    Stack stack;
+    char opcode[100];
+    int value;
+
     if (argc != 2) {
         fprintf(stderr, "Usage: %s <filename>\n", argv[0]);
         return EXIT_FAILURE;
     }
 
-    FILE *file = fopen(argv[1], "r");
+    file = fopen(argv[1], "r");
     if (file == NULL) {
         perror("Unable to open file");
         return EXIT_FAILURE;
     }
 
-    Stack stack;
     stack.top = -1;
-
-    char opcode[100];
-    int value;
 
     while (fscanf(file, "%s", opcode) != EOF) {
         if (strcmp(opcode, "push") == 0) {
