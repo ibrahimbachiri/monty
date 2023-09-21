@@ -71,3 +71,23 @@ void add_node(stack_t **stack, int value)
 
     *stack = new_node;
 }
+
+/**
+ * pint - Prints the value at the top of the stack
+ * @stack: Pointer to the pointer to the stack (doubly linked list)
+ * @line_number: Line number in the Monty file
+ *
+ * Description: Prints the integer value at the top of the stack, followed
+ * by a newline. If the stack is empty, it prints an error message and exits
+ * with EXIT_FAILURE.
+ */
+void pint(stack_t **stack, unsigned int line_number)
+{
+    if (!stack || !*stack)
+    {
+        fprintf(stderr, "L%d: can't pint, stack empty\n", line_number);
+        exit(EXIT_FAILURE);
+    }
+
+    printf("%d\n", (*stack)->n);
+}

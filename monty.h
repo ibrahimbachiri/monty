@@ -22,6 +22,7 @@ void push(stack_t **stack, unsigned int line_number);
 void pall(stack_t **stack, unsigned int line_number);
 int is_number(char *str);
 void add_node(stack_t **stack, int value); // Add this declaration
+void pint(stack_t **stack, unsigned int line_number);
 
 /* ... Other header declarations ... */
 
