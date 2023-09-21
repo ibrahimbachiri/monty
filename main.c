@@ -52,6 +52,10 @@ int main(int argc, char *argv[])
 	{ 
 	pop(&stack);
 	}
+       	else if (strcmp(opcode, "swap") == 0)
+	{
+	swap(&stack);
+	}
 	else
 	{
 	fprintf(stderr, "L%d: Unknown opcode: %s\n", line_number, opcode);
